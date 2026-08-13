@@ -1,0 +1,56 @@
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a,
+  button,
+  input,
+  textarea,
+  select,
+  [role="button"],
+  .project-card-btn {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor-ring-wrapper,
+.custom-cursor-dot-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 999999;
+  will-change: transform;
+}
+
+.custom-cursor-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  /* Center the 10px dot */
+  margin-top: -5px;
+  margin-left: -5px;
+  transition: transform 0.15s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s ease;
+}
+
+.custom-cursor-dot.clicking {
+  transform: scale(0.5);
+}
+
+.custom-cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1.5px solid;
+  border-radius: 50%;
+  /* Center the 32px ring */
+  margin-top: -16px;
+  margin-left: -16px;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+  opacity: 1;
+}
+
+.custom-cursor-ring.hovering {
+  transform: scale(1.5);
+  opacity: 0.6;
+}
