@@ -44,3 +44,42 @@ function App() {
       setActiveProjectId(param || 'recruitments')
       setPage('project')
       window.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }
+
+  // Scroll to top on page change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [page, activeProjectId])
+
+  const renderPage = () => {
+    switch (page) {
+      case 'about':
+        return <AboutPage onNavigate={handleNavigate} />
+      case 'project':
+        return (
+          <ProjectDetailPage
+            projectId={activeProjectId}
+            onNavigate={handleNavigate}
+          />
+        )
+      default:
+        return <HomePage onNavigate={handleNavigate} />
+    }
+  }
+
+  return (
+    <div style={{ height: isSplashLoading ? '100vh' : 'auto', overflow: isSplashLoading ? 'hidden' : 'auto' }}>
+      <AnimatePresence mode="wait">
+        {isSplashLoading && (
+          <SplashLoader key="splash" onComplete={() => setIsSplashLoading(false)} />
+        )}
+      </AnimatePresence>
+      
+      {renderPage()}
+      <CustomCursor color={getCursorColor()} />
+    </div>
+  )
+}
+
+export default App
