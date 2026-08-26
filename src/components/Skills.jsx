@@ -1,22 +1,22 @@
 export default function Skills() {
   const skills = [
-    { 
-      num: '01', 
+    {
+      num: '01',
       name: 'UI/UX Design',
       points: ['Wireframing & Prototyping', 'User Flows & Journey Mapping', 'Design Systems']
     },
-    { 
-      num: '02', 
+    {
+      num: '02',
       name: 'Product Design',
       points: ['User Research & Testing', 'Product & Feature Strategy', 'Interaction Design']
     },
-    { 
-      num: '03', 
+    {
+      num: '03',
       name: 'Graphic Design',
       points: ['Creative Direction', 'Visual Communication', 'Illustration & Iconography']
     },
-    { 
-      num: '04', 
+    {
+      num: '04',
       name: 'Brand Design',
       points: ['Brand Strategy', 'Logo & Identity Systems', 'Brand Guidelines']
     }

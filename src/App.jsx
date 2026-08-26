@@ -1,11 +1,52 @@
 import { useState, useEffect } from 'react'
+import { ReactLenis, useLenis } from 'lenis/react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import HomePage from './pages/HomePage'
 import ProjectDetailPage from './pages/ProjectDetailPage'
 import AboutPage from './pages/AboutPage'
 import CustomCursor from './components/CustomCursor'
 import { AnimatePresence } from 'framer-motion'
 import SplashLoader from './components/SplashLoader'
+import ScrollRevealManager from './components/ScrollRevealManager'
 
+gsap.registerPlugin(ScrollTrigger)
+
+function LenisScrollManager({ page, activeProjectId }) {
+  const lenis = useLenis()
+
+  // Sync Lenis scrolling with GSAP ScrollTrigger
+  useEffect(() => {
+    if (!lenis) return
+
+    const handleScroll = () => {
+      ScrollTrigger.update()
+    }
+
+    lenis.on('scroll', handleScroll)
+
+    return () => {
+      lenis.off('scroll', handleScroll)
+    }
+  }, [lenis])
+
+  // Scroll to top and refresh ScrollTrigger on page navigation
+  useEffect(() => {
+    if (lenis) {
+      lenis.scrollTo(0, { immediate: true })
+    } else {
+      window.scrollTo(0, 0)
+    }
+
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 60)
+
+    return () => clearTimeout(timer)
+  }, [page, activeProjectId, lenis])
+
+  return null
+}
 
 function App() {
   const [page, setPage] = useState('home') // 'home' | 'project' | 'about'
@@ -26,30 +67,38 @@ function App() {
     if (targetPage === 'home') {
       setPage('home')
       if (param && param === 'about') {
-        // "About" navigates to the About page
         setPage('about')
-        window.scrollTo({ top: 0, behavior: 'smooth' })
       } else if (param) {
         setTimeout(() => {
           const el = document.getElementById(param)
-          if (el) el.scrollIntoView({ behavior: 'smooth' })
-        }, 100)
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' })
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' })
+          }
+        }, 120)
       }
     } else if (targetPage === 'about') {
       setPage('about')
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     } else if (targetPage === 'project') {
       setActiveProjectId(param || 'recruitments')
       setPage('project')
-      window.scrollTo({ top: 0, behavior: 'smooth' })
     }
   }
 
-  // Scroll to top on page change
+  // Update title on page change
   useEffect(() => {
-    window.scrollTo(0, 0)
+    if (page === 'about') {
+      document.title = 'About ✦ Shourya Vardhan'
+    } else if (page === 'project') {
+      const projectTitles = {
+        'recruitments': "Recruitments '26",
+        'website-revamp': "Website Revamp '26",
+        'hexecute': "Hexecute"
+      }
+      const title = projectTitles[activeProjectId] || 'Project'
+      document.title = `${title} ✦ Shourya Vardhan`
+    } else {
+      document.title = 'Shourya Vardhan ✦ UI/UX Designer'
+    }
   }, [page, activeProjectId])
 
   const renderPage = () => {
@@ -69,16 +118,33 @@ function App() {
   }
 
   return (
-    <div style={{ height: isSplashLoading ? '100vh' : 'auto', overflow: isSplashLoading ? 'hidden' : 'auto' }}>
-      <AnimatePresence mode="wait">
-        {isSplashLoading && (
-          <SplashLoader key="splash" onComplete={() => setIsSplashLoading(false)} />
-        )}
-      </AnimatePresence>
-      
-      {renderPage()}
-      <CustomCursor color={getCursorColor()} />
-    </div>
+    <ReactLenis
+      root
+      options={{
+        lerp: 0.08,
+        duration: 1.2,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.5,
+        infinite: false,
+      }}
+    >
+      <LenisScrollManager page={page} activeProjectId={activeProjectId} />
+      <ScrollRevealManager page={page} activeProjectId={activeProjectId} />
+
+      {isSplashLoading ? (
+        <div style={{ height: '100vh', overflow: 'hidden' }}>
+          <AnimatePresence mode="wait">
+            <SplashLoader key="splash" onComplete={() => setIsSplashLoading(false)} />
+          </AnimatePresence>
+        </div>
+      ) : (
+        <>
+          {renderPage()}
+          <CustomCursor color={getCursorColor()} />
+        </>
+      )}
+    </ReactLenis>
   )
 }
 

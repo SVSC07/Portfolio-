@@ -1,9 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Amatica+SC:wght@400;700&display=swap');
 @import "tailwindcss";
+@import "tw-animate-css";
+
+:root {
+  --font-sans: 'Plus Jakarta Sans', ui-sans-serif, system-ui, sans-serif;
+}
 
 @layer base {
   html {
     scrollbar-gutter: stable;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-smooth iframe {
+    pointer-events: none;
   }
 
   body {
@@ -197,6 +223,34 @@
   letter-spacing: 0.04em;
   color: #7F7F80;
   line-height: 1.3;
+  min-height: clamp(64px, 8.8vw, 115px);
+}
+
+/* ═══════════════════════════════════════
+   FLIP TEXT ANIMATION (Vengeance UI)
+   ═══════════════════════════════════════ */
+.flip-text-wrapper {
+  display: inline-block;
+  perspective: 1000px;
+}
+
+.flip-char {
+  display: inline-block;
+  transform-style: preserve-3d;
+  backface-visibility: visible;
+  animation: flip-char-anim var(--flip-duration, 2.2s) cubic-bezier(0.4, 0, 0.2, 1) var(--flip-delay, 0s) var(--flip-iteration, infinite);
+}
+
+@keyframes flip-char-anim {
+  0%, 15% {
+    transform: rotateX(0deg);
+  }
+  45%, 65% {
+    transform: rotateX(360deg);
+  }
+  85%, 100% {
+    transform: rotateX(360deg);
+  }
 }
 
 .hero-role {
@@ -239,23 +293,46 @@
 
 .project-card {
   width: 100%;
+  min-width: 100%;
+  max-width: 100%;
   position: relative;
   overflow: hidden;
-  /* Fluid height: ~532px at 1280px, grows proportionally, caps at 700px */
-  height: clamp(380px, 41.5vw, 700px);
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+
+/* Background Black Noise Texture */
+.project-card-noise {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='blackNoise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23blackNoise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  opacity: 0.16;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .project-card-content {
   position: absolute;
   top: clamp(48px, 7.2vw, 92px);
   left: clamp(24px, 4.4vw, 70px);
+  width: clamp(340px, 44vw, 560px);
   max-width: 46%;
   box-sizing: border-box;
+  z-index: 5;
 }
 
 .project-card-content.phones-layout {
-  top: clamp(36px, 5.3vw, 68px);
+  top: clamp(48px, 7.2vw, 92px);
+  width: clamp(300px, 38vw, 480px);
   max-width: 38%;
+  z-index: 5;
 }
 
 .project-card-tag {
@@ -272,10 +349,10 @@
   align-items: center;
   gap: clamp(6px, 0.6vw, 12px);
   padding: clamp(6px, 0.8vw, 12px) clamp(12px, 1.5vw, 24px);
-  border: 1.5px solid #e03131;
+  border: 1.5px solid #DB5151;
   border-radius: clamp(4px, 0.5vw, 8px);
-  background-color: rgba(224, 49, 49, 0.1);
-  color: #e03131;
+  background-color: rgba(219, 81, 81, 0.1);
+  color: #DB5151;
   font-family: 'Product Sans', sans-serif;
   font-size: clamp(15px, 1.4vw, 24px);
   font-weight: 600;
@@ -297,7 +374,7 @@
 }
 
 .project-card-title.phones-title {
-  margin-bottom: clamp(10px, 1.25vw, 16px);
+  margin-bottom: clamp(16px, 2.8vw, 36px);
 }
 
 .project-card-desc {
@@ -307,6 +384,7 @@
   line-height: 1.67;
   color: #FDFBFB;
   margin-bottom: clamp(16px, 2.8vw, 36px);
+  width: 100%;
 }
 
 .project-card-btn {
@@ -334,17 +412,19 @@
 .project-mockup-browser {
   position: absolute;
   right: 3.1%;
-  top: 26.7%;
+  bottom: 0;
   width: 41.3%;
-  height: auto;
-  border-radius: 5px;
+  border-radius: 6px 6px 0 0;
+  display: block;
+  z-index: 3;
 }
 
 .project-mockup-browser.hexecute {
   top: auto;
   bottom: 0;
-  width: 48%;
-  right: 0%;
+  width: 55%;
+  right: 1%;
+  z-index: 3;
 }
 
 /* Mockup Images — Phones */
@@ -354,7 +434,7 @@
   top: -48.3%;
   width: 20.7%;
   height: auto;
-  z-index: 2;
+  z-index: 4;
 }
 
 .project-mockup-phone-bottom {
@@ -363,7 +443,7 @@
   top: 46.6%;
   width: 20.7%;
   height: auto;
-  z-index: 1;
+  z-index: 3;
 }
 
 /* ═══════════════════════════════════════
@@ -433,7 +513,8 @@
   font-family: 'Product Sans', sans-serif;
   font-weight: 400;
   font-size: clamp(13px, 1.25vw, 18px);
-  color: #7F7F80; /* Secondary color for points */
+  color: #7F7F80;
+  /* Secondary color for points */
   margin-bottom: clamp(4px, 0.5vw, 8px);
   letter-spacing: 0.02em;
 }
@@ -441,7 +522,8 @@
 /* Hover effects */
 .skill-row:hover .skill-num,
 .skill-row:hover .skill-name {
-  color: #2C2C2C; /* Primary color */
+  color: #2C2C2C;
+  /* Primary color */
 }
 
 .skill-row:hover .skill-points {
@@ -1124,4 +1206,20 @@
   font-size: clamp(24px, 3.5vw, 48px);
   font-weight: 700;
   color: #2C2C2C;
+}
+
+/* ═══════════════════════════════════════
+   GLOBAL SCROLL UP TEXT ANIMATIONS
+   ═══════════════════════════════════════ */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
 }

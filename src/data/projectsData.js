@@ -6,6 +6,7 @@ export const projectsData = {
     headline: "Redesigning Recruitment: From Static Form to Guided Journey",
     summary: "A recruitment platform for GDG JSSATEN that replaces a one-time form with a guided, multi-round journey, visible progress, domain-specific assessments, and built-in help.",
     buttonText: "Visit Figma Link",
+    buttonLink: "https://www.figma.com/design/sRQWf1qsAtnTdbjUlGnIY5/GDG-Recruitment-Website?node-id=0-1&t=AhsDnLjHX8Uy7t8H-1",
     problem: {
       intro: "GDG JSSATEN runs its yearly recruitment drive across five domains — Design, Programming, Web Development, App Development, and Machine Learning through a multi-round process:",
       processFlow: "Registration → Task Round → Aptitude Round → Interview Round → Final Results",
@@ -49,6 +50,7 @@ export const projectsData = {
         content: "I designed Zephyr, an in-platform AI helper accessible from every screen (\"I have a doubt\"), plus a notifications panel so candidates aren't stuck if something's unclear or they miss an update, without needing a human coordinator on standby."
       }
     ],
+    solutionIntro: "A recruitment platform that:",
     solution: [
       "Makes the five-round journey visible from the landing page onward",
       "Supports flexible, resilient sign-up and login across email and phone",
@@ -131,6 +133,7 @@ export const projectsData = {
         ]
       }
     ],
+    solutionIntro: "A website that:",
     solution: [
       "Uses the community's correct, current branding everywhere",
       "Opens with real, recent proof of activity instead of only descriptive copy",

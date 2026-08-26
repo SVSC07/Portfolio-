@@ -47,7 +47,7 @@ export default function ProjectDetailPage({ projectId, onNavigate }) {
               {data.summary}
             </p>
 
-            <button 
+            <button
               className="case-study-btn"
               onClick={() => {
                 if (data.buttonLink) {
@@ -116,7 +116,9 @@ export default function ProjectDetailPage({ projectId, onNavigate }) {
             {/* Solution Section */}
             <div className="case-study-subsection">
               <h3 className="section-heading">Solution</h3>
-              <p className="body-text" style={{ marginBottom: '8px' }}>A recruitment platform that / A rebuilt website that:</p>
+              {data.solutionIntro && (
+                <p className="body-text" style={{ marginBottom: '8px' }}>{data.solutionIntro}</p>
+              )}
               <ul className="solution-list">
                 {data.solution.map((sol, idx) => (
                   <li key={idx} className="body-text">
