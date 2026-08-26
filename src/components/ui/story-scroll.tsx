@@ -78,47 +78,98 @@ const FlowArt: React.FC<FlowArtProps> = ({
       );
       if (sections.length === 0) return;
 
-      const triggers: ScrollTrigger[] = [];
+      const mm = gsap.matchMedia();
 
-      sections.forEach((section, i) => {
-        gsap.set(section, { zIndex: i + 1, width: '100%' });
+      // Desktop: 3D rotation and stacking pin animation
+      mm.add('(min-width: 769px)', () => {
+        const triggers: ScrollTrigger[] = [];
 
-        const inner = section.querySelector<HTMLElement>('.flow-art-container');
-        if (!inner) return;
+        sections.forEach((section, i) => {
+          gsap.set(section, { zIndex: i + 1, width: '100%' });
 
-        if (i > 0) {
-          gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });
+          const inner = section.querySelector<HTMLElement>('.flow-art-container');
+          if (!inner) return;
 
-          const tween = gsap.to(inner, {
-            rotation: 0,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top bottom',
-              end: 'top 25%',
-              scrub: true,
-            },
-          });
-          if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
-        }
+          if (i > 0) {
+            gsap.set(inner, { rotation: 30, transformOrigin: 'bottom left' });
 
-        if (i < sections.length - 1) {
-          triggers.push(
-            ScrollTrigger.create({
-              trigger: section,
-              start: 'bottom bottom',
-              end: 'bottom top',
-              pin: true,
-              pinSpacing: false,
-            }),
-          );
-        }
+            const tween = gsap.to(inner, {
+              rotation: 0,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top bottom',
+                end: 'top 25%',
+                scrub: true,
+              },
+            });
+            if (tween.scrollTrigger) triggers.push(tween.scrollTrigger);
+          }
+
+          if (i < sections.length - 1) {
+            triggers.push(
+              ScrollTrigger.create({
+                trigger: section,
+                start: 'bottom bottom',
+                end: 'bottom top',
+                pin: true,
+                pinSpacing: false,
+              }),
+            );
+          }
+        });
+
+        ScrollTrigger.refresh();
+
+        return () => {
+          triggers.forEach((t) => t.kill());
+        };
       });
 
-      ScrollTrigger.refresh();
+      // Mobile: Touch-optimized card tilt & scale reveal on scroll
+      mm.add('(max-width: 768px)', () => {
+        const mobileTriggers: ScrollTrigger[] = [];
+
+        sections.forEach((section, i) => {
+          const inner = section.querySelector<HTMLElement>('.flow-art-container');
+          if (!inner) return;
+
+          if (i > 0) {
+            gsap.set(inner, {
+              scale: 0.93,
+              rotation: 4,
+              transformOrigin: 'bottom left',
+              opacity: 0.92,
+            });
+
+            const tween = gsap.to(inner, {
+              scale: 1,
+              rotation: 0,
+              opacity: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top 92%',
+                end: 'top 45%',
+                scrub: 1,
+              },
+            });
+
+            if (tween.scrollTrigger) mobileTriggers.push(tween.scrollTrigger);
+          } else {
+            gsap.set(inner, { scale: 1, rotation: 0, opacity: 1 });
+          }
+        });
+
+        ScrollTrigger.refresh();
+
+        return () => {
+          mobileTriggers.forEach((t) => t.kill());
+        };
+      });
 
       return () => {
-        triggers.forEach((t) => t.kill());
+        mm.revert();
       };
     },
     { scope: containerRef, dependencies: [childCount(children), reducedMotion] },
@@ -128,7 +179,7 @@ const FlowArt: React.FC<FlowArtProps> = ({
     <main
       ref={containerRef}
       aria-label={ariaLabel}
-      className={cx('relative w-full overflow-hidden', className)}
+      className={cx('relative w-full overflow-hidden mobile-flow-art', className)}
       style={{ width: '100%' }}
     >
       {children}

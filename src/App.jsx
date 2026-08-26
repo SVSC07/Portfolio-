@@ -117,6 +117,18 @@ function App() {
     }
   }
 
+  // Lock scrolling during splash loader
+  useEffect(() => {
+    if (isSplashLoading) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isSplashLoading])
+
   return (
     <ReactLenis
       root
@@ -132,18 +144,14 @@ function App() {
       <LenisScrollManager page={page} activeProjectId={activeProjectId} />
       <ScrollRevealManager page={page} activeProjectId={activeProjectId} />
 
-      {isSplashLoading ? (
-        <div style={{ height: '100vh', overflow: 'hidden' }}>
-          <AnimatePresence mode="wait">
-            <SplashLoader key="splash" onComplete={() => setIsSplashLoading(false)} />
-          </AnimatePresence>
-        </div>
-      ) : (
-        <>
-          {renderPage()}
-          <CustomCursor color={getCursorColor()} />
-        </>
-      )}
+      <AnimatePresence mode="wait">
+        {isSplashLoading && (
+          <SplashLoader key="splash" onComplete={() => setIsSplashLoading(false)} />
+        )}
+      </AnimatePresence>
+
+      {renderPage()}
+      <CustomCursor color={getCursorColor()} />
     </ReactLenis>
   )
 }
