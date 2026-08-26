@@ -24,6 +24,13 @@
   will-change: transform;
 }
 
+@media (pointer: coarse), (hover: none) {
+  .custom-cursor-ring-wrapper,
+  .custom-cursor-dot-wrapper {
+    display: none !important;
+  }
+}
+
 .custom-cursor-dot {
   width: 10px;
   height: 10px;

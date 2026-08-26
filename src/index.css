@@ -1003,15 +1003,16 @@
 
   /* Project card: reduce aspect constraints */
   .project-card {
-    height: clamp(320px, 50vw, 500px);
+    height: auto;
+    min-height: 520px;
   }
 
   .project-card-content {
-    max-width: 50%;
+    max-width: 55%;
   }
 
   .project-card-content.phones-layout {
-    max-width: 45%;
+    max-width: 50%;
   }
 }
 
@@ -1019,64 +1020,176 @@
    MOBILE BREAKPOINT (< 768px)
    ═══════════════════════════════════════ */
 @media (max-width: 767px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
   .content-container {
-    padding: 0 20px;
+    padding: 0 16px;
   }
 
   /* ── Navbar ── */
+  .navbar {
+    padding: 16px 0;
+  }
+
   .nav-links {
     display: none;
   }
 
   .nav-hamburger {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    margin-right: -8px;
   }
 
   .mobile-menu {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 24px 0 16px;
-    border-bottom: 1px solid #E5E5E0;
+    gap: 8px;
+    padding: 16px;
+    background: rgba(248, 246, 243, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .mobile-menu .nav-link-btn {
+    text-align: left;
+    padding: 10px 12px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #2C2C2C;
+    border-radius: 8px;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .mobile-menu .nav-link-btn:active {
+    background: rgba(0, 0, 0, 0.06);
   }
 
   /* ── Hero ── */
   .hero-section {
     min-height: auto;
-    padding-bottom: 0;
+    padding-top: 24px;
+    padding-bottom: 10px;
   }
 
   .hero-text {
     max-width: 100%;
+    gap: 16px;
+  }
+
+  .hero-greeting {
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 2px;
+  }
+
+  .hero-name {
+    font-size: clamp(38px, 12vw, 56px);
+    line-height: 1.05;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(20px, 5.8vw, 28px);
+    line-height: 1.35;
+    min-height: clamp(56px, 15vw, 76px);
+  }
+
+  .hero-role {
+    font-size: 15px;
+    line-height: 1.45;
   }
 
   .hero-avatar-wrapper {
     position: relative;
     top: auto;
     right: auto;
-    width: 55%;
-    margin: 32px auto 0;
+    width: 65%;
+    max-width: 230px;
+    margin: 20px auto 0;
   }
 
-  /* ── Project Cards ── */
+  /* ── Story Scroll & Project Cards ── */
+  .project-cards-section {
+    margin-top: 40px;
+  }
+
+  .mobile-flow-art [data-flow-section] {
+    min-height: auto !important;
+    height: auto !important;
+    margin-bottom: 24px;
+  }
+
+  .mobile-flow-art .flow-art-container {
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    transform: none !important;
+  }
+
   .project-card {
-    height: auto;
-    min-height: auto;
+    height: auto !important;
+    min-height: auto !important;
+    max-height: none !important;
+    border-radius: 18px;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
   }
 
-  .project-card-content {
+  .project-card-content,
+  .project-card-content.phones-layout {
     position: relative;
     top: auto;
     left: auto;
+    width: 100%;
     max-width: 100%;
-    padding: 24px 24px 20px;
+    padding: 24px 20px 12px;
   }
 
-  .project-card-content.phones-layout {
-    top: auto;
-    max-width: 100%;
+  .project-card-tag {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .under-development-badge {
+    font-size: 13px;
+    padding: 5px 12px;
+    margin-bottom: 12px;
+  }
+
+  .project-card-title,
+  .project-card-title.browser-title,
+  .project-card-title.phones-title {
+    font-size: 24px;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .project-card-desc {
+    font-size: 14px;
+    line-height: 1.55;
+    margin-bottom: 18px;
+  }
+
+  .project-card-btn {
+    font-size: 14px;
+    height: 38px;
+    padding: 6px 18px;
   }
 
   .project-mockup-browser,
@@ -1086,16 +1199,19 @@
     top: auto;
     bottom: auto;
     width: 90%;
-    margin: 0 auto 24px;
+    max-width: 380px;
+    margin: 12px auto 20px;
     display: block;
+    border-radius: 6px 6px 0 0;
   }
 
   .project-mockup-phone-top {
     position: relative;
     right: auto;
     top: auto;
-    width: 40%;
-    margin: 0 auto 24px;
+    width: 60%;
+    max-width: 230px;
+    margin: 8px auto 20px;
     display: block;
   }
 
@@ -1103,31 +1219,51 @@
     display: none;
   }
 
-  /* ── About ── */
-  .about-layout {
-    grid-template-columns: 1fr;
-    gap: 28px;
+  /* ── Skills ── */
+  .skills-section {
+    padding-top: 48px;
   }
 
-  .about-photo-wrapper {
-    width: 70%;
-    aspect-ratio: 439 / 405;
+  .skills-title {
+    font-size: 28px;
+    margin-bottom: 18px;
   }
 
-  .about-heading {
-    font-size: clamp(24px, 6vw, 32px);
+  .skill-row {
+    margin-bottom: 14px;
   }
 
-  .about-subheading {
-    font-size: clamp(20px, 5vw, 26px);
+  .skill-header {
+    grid-template-columns: 36px 1fr;
+  }
+
+  .skill-num,
+  .skill-name {
+    font-size: 20px;
+  }
+
+  .skill-points {
+    padding-left: 36px;
+    max-height: 400px;
+    opacity: 1;
+    margin-top: 6px;
+  }
+
+  .skill-points li {
+    font-size: 13px;
+    margin-bottom: 4px;
   }
 
   /* ── Footer ── */
+  .footer {
+    padding-top: 48px;
+  }
+
   .footer-content {
     flex-direction: column;
-    gap: 36px;
+    gap: 32px;
     min-height: auto;
-    padding-bottom: 40px;
+    padding-bottom: 36px;
   }
 
   .footer-left {
@@ -1135,38 +1271,153 @@
   }
 
   .footer-left-top {
-    margin-bottom: 32px;
+    margin-bottom: 24px;
+  }
+
+  .footer-email {
+    font-size: 13px;
+    word-break: break-all;
+  }
+
+  .footer-portfolio-title {
+    font-size: 32px;
+    line-height: 1.15;
+    margin-top: 8px;
+  }
+
+  .footer-credit {
+    font-size: 12px;
+  }
+
+  .footer-copyright {
+    font-size: 12px;
   }
 
   .footer-right {
     width: 100%;
-    gap: 32px;
+    gap: 28px;
   }
 
   .footer-links-grid {
     grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .footer-links-col a,
+  .footer-links-col button {
+    font-size: 14px;
+    padding: 6px 0;
+    min-height: 36px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .footer-connect-btn {
     width: 100%;
+    height: 44px;
+    font-size: 14px;
   }
 
   .footer-avatar {
     position: relative;
     right: auto;
     bottom: auto;
-    width: 100px;
+    width: 90px;
     margin: 16px auto 0;
   }
 
-  /* ── Case Study ── */
+  /* ── Project Detail / Case Study ── */
+  .project-hero {
+    padding-top: 70px;
+  }
+
+  .project-title {
+    font-size: clamp(28px, 8.5vw, 42px);
+    margin-bottom: 20px;
+  }
+
+  .project-banner {
+    margin-bottom: 32px;
+    border-radius: 10px;
+  }
+
   .case-study-section {
     flex-direction: column;
+    gap: 24px;
+    margin-bottom: 60px;
   }
 
   .case-study-left,
   .case-study-right {
     width: 100%;
+  }
+
+  .case-study-headline {
+    font-size: 21px;
+    line-height: 1.3;
+    margin-bottom: 12px;
+  }
+
+  .case-study-summary {
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    text-align: left;
+  }
+
+  .case-study-btn {
+    width: 100%;
+    height: 44px;
+    font-size: 15px;
+    margin-bottom: 24px;
+  }
+
+  .section-heading {
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .body-text {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .case-study-bullets,
+  .sub-bullets,
+  .solution-list,
+  .outcome-list,
+  .learnings-list {
+    padding-left: 18px;
+  }
+
+  /* ── About ── */
+  .about-section {
+    padding-top: 70px;
+  }
+
+  .about-layout {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .about-photo-wrapper {
+    width: 75%;
+    max-width: 250px;
+    margin: 0 auto 16px;
+  }
+
+  .about-heading {
+    font-size: clamp(24px, 6.5vw, 30px);
+  }
+
+  .about-subheading {
+    font-size: clamp(19px, 5.2vw, 24px);
+    margin-top: 20px;
+  }
+
+  .about-body {
+    font-size: 14px;
+    line-height: 1.65;
   }
 }
 
