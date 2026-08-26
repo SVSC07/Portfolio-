@@ -1,3 +1,5 @@
+import { FlipText } from '@/components/ui/flip-text'
+
 export default function Hero() {
   return (
     <section className="hero-section">
@@ -13,9 +15,16 @@ export default function Hero() {
           </div>
         </div>
 
-        {/* Subtitle */}
+        {/* Subtitle with FlipText animation */}
         <div className="hero-subtitle">
-          Designing journeys<br />from scratch
+          <FlipText
+            phrases={[
+              'Designing journeys\nfrom scratch',
+              'Turning 0 into 1,\none screen at a time',
+            ]}
+            interval={4500}
+            flipSpeed={0.7}
+          />
         </div>
 
         {/* Role */}

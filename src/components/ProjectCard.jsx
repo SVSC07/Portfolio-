@@ -17,6 +17,9 @@ export default function ProjectCard({
       className="project-card"
       style={{ backgroundColor: bgColor }}
     >
+      {/* Background Noise Effect */}
+      <div className="project-card-noise" aria-hidden="true" />
+
       {/* Text Content - Left Side */}
       <div className={`project-card-content${isPhones ? ' phones-layout' : ''}`}>
         {/* Tag */}
@@ -46,14 +49,14 @@ export default function ProjectCard({
         </div>
 
         {/* View Project Button */}
-        <button 
+        <button
           onClick={() => {
             if (underDevelopment) {
               alert("Hold your horses! 🐎 This project is still brewing in the development cauldron. Check back soon for the grand reveal!");
             } else if (onViewProject) {
               onViewProject();
             }
-          }} 
+          }}
           className="project-card-btn"
         >
           View Project
