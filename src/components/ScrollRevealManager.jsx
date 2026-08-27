@@ -39,7 +39,7 @@ export default function ScrollRevealManager({ page, activeProjectId }) {
       elements.forEach((el) => {
         // Skip elements inside flip-text or already initialized
         if (el.closest('.flip-text-container') || el.closest('.flip-char')) return
-        
+
         el.classList.add('scroll-reveal')
 
         // Check if already in viewport on mount
