@@ -1,9 +1,10 @@
 import FlowArt, { FlowSection } from './story-scroll';
+import SmoothScrollComponent from './smooth-scroll';
 
-export default function FlowArtDefaultDemo() {
+export function FlowArtDefaultDemo() {
   return (
-    <FlowArt aria-label="Présentation Flow Art">
-      <FlowSection aria-label="Qui nous sommes" style={{ backgroundColor: '#fd5200', color: '#fff' }}>
+    <FlowArt aria-label="Flow Art Presentation">
+      <FlowSection aria-label="Who we are" style={{ backgroundColor: '#fd5200', color: '#fff' }}>
         <p className="text-xs font-bold uppercase tracking-[0.2em]">01 — Who we are</p>
         <hr className="my-[2vw] border-none border-t border-black opacity-100" />
         <div>
@@ -24,7 +25,7 @@ export default function FlowArtDefaultDemo() {
         </p>
       </FlowSection>
 
-      <FlowSection aria-label="La mission" style={{ backgroundColor: '#000', color: '#fff' }}>
+      <FlowSection aria-label="The mission" style={{ backgroundColor: '#000', color: '#fff' }}>
         <p className="text-xs font-bold uppercase tracking-[0.2em]">02 — The mission</p>
         <hr className="my-[2vw] border-none border-t border-white/60" />
         <div>
@@ -92,7 +93,7 @@ export default function FlowArtDefaultDemo() {
         </p>
       </FlowSection>
 
-      <FlowSection aria-label="Comment ça marche" style={{ backgroundColor: '#F5F0E8', color: '#000' }}>
+      <FlowSection aria-label="How it works" style={{ backgroundColor: '#F5F0E8', color: '#000' }}>
         <p className="text-xs font-bold uppercase tracking-[0.2em]">03 — How it works</p>
         <hr className="my-[2vw] border-none border-t border-black/60" />
         <div>
@@ -156,7 +157,7 @@ export default function FlowArtDefaultDemo() {
         </div>
       </FlowSection>
 
-      <FlowSection aria-label="La vision" style={{ backgroundColor: '#1A3DE8', color: '#fff' }}>
+      <FlowSection aria-label="The vision" style={{ backgroundColor: '#1A3DE8', color: '#fff' }}>
         <p className="text-xs font-bold uppercase tracking-[0.2em]">04 — The vision</p>
         <hr className="my-[2vw] border-none border-t border-white/50" />
         <div>
@@ -223,9 +224,9 @@ export default function FlowArtDefaultDemo() {
         </div>
       </FlowSection>
 
-      <FlowSection aria-label="Nous rejoindre" style={{ backgroundColor: '#000', color: '#fff' }}>
+      <FlowSection aria-label="Join us" style={{ backgroundColor: '#000', color: '#fff' }}>
         <p className="text-xs font-bold uppercase tracking-[0.2em]">05 — Join us</p>
-        <hr className="my-[2vw] border-none border-t border-black/60" />
+        <hr className="my-[2vw] border-none border-t border-white/60" />
         <div>
           <h2
             className="text-[clamp(3.5rem,12vw,14rem)] font-bold leading-[0.85] uppercase tracking-tight"
@@ -237,7 +238,7 @@ export default function FlowArtDefaultDemo() {
             Begin?
           </h2>
         </div>
-        <hr className="my-[2vw] border-none border-t border-black/60" />
+        <hr className="my-[2vw] border-none border-t border-white/60" />
         <p className="mt-auto max-w-[50ch] text-[clamp(1rem,2.5vw,2rem)] font-normal leading-relaxed">
           Take control of your creative journey. Join now and let&apos;s shape the future of the art
           world together.
@@ -247,13 +248,10 @@ export default function FlowArtDefaultDemo() {
   );
 }
 
-import Component from '@/components/ui/smooth-scroll';
-
-function ComponentDemo() {
-  return (
-    <Component />
-  );
+export function SmoothScrollDemo() {
+  return <SmoothScrollComponent />;
 }
 
-export { ComponentDemo as DemoOne };
-
+// Aliases for compatibility
+export { SmoothScrollDemo as DemoOne, FlowArtDefaultDemo as StoryScrollDemo };
+export default FlowArtDefaultDemo;
