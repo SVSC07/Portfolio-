@@ -24,7 +24,7 @@ export default function Navbar({ onNavigate }) {
           <button onClick={() => handleNav('home', 'work')} className="nav-link-btn">Work</button>
           <button onClick={() => handleNav('home', 'skills')} className="nav-link-btn">Skills</button>
           <button onClick={() => handleNav('home', 'about')} className="nav-link-btn">About</button>
-          <a href="https://drive.google.com/drive/folders/1b6dxcA9d28mE-eHR94-P-vqBCkxRu_3c" target="_blank" rel="noopener noreferrer" className="nav-link-btn" style={{ textDecoration: 'none' }}>Resume</a>
+          <a href="https://drive.google.com/file/d/1X7-eDkYb4SRD5wrlrtj-s0N9MoA3UEG9/preview" target="_blank" rel="noopener noreferrer" className="nav-link-btn" style={{ textDecoration: 'none' }}>Resume</a>
         </div>
 
         {/* Mobile Hamburger */}
@@ -54,7 +54,7 @@ export default function Navbar({ onNavigate }) {
           <button onClick={() => handleNav('home', 'work')} className="nav-link-btn">Work</button>
           <button onClick={() => handleNav('home', 'skills')} className="nav-link-btn">Skills</button>
           <button onClick={() => handleNav('home', 'about')} className="nav-link-btn">About</button>
-          <a href="https://drive.google.com/drive/folders/1b6dxcA9d28mE-eHR94-P-vqBCkxRu_3c" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} className="nav-link-btn" style={{ textDecoration: 'none' }}>Resume</a>
+          <a href="https://drive.google.com/file/d/1X7-eDkYb4SRD5wrlrtj-s0N9MoA3UEG9/preview" target="_blank" rel="noopener noreferrer" onClick={() => setMenuOpen(false)} className="nav-link-btn" style={{ textDecoration: 'none' }}>Resume</a>
         </div>
       )}
     </>
