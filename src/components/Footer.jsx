@@ -56,7 +56,7 @@ export default function Footer({ onNavigate }) {
                 link === 'Resume' ? (
                   <a
                     key={link}
-                    href="https://drive.google.com/file/d/1X7-eDkYb4SRD5wrlrtj-s0N9MoA3UEG9/preview"
+                    href="https://drive.google.com/file/d/1zfsNwXEnqdF2otCBynsa79DUDcjNrzSk/preview"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="footer-link"
